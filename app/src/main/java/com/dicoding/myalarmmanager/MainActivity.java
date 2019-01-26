@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton btnOnceTime;
     Button btnSetOnce;
 
+    Button btnCancelRepeating;
+
     TextView tvRepeatingTime;
     EditText edtRepeatingMessage;
     ImageButton  btnRepeatingTime;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRepeatingTime.setOnClickListener(this);
         btnSetRepeating.setOnClickListener(this);
 
+        btnCancelRepeating = findViewById(R.id.btn_cancel_repeating_alarm);
+        btnCancelRepeating.setOnClickListener(this);
 
         alarmReceiver = new AlarmReceiver();
 
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         onceTime,
                         onceMessage);
                 break;
+
             case R.id.btn_repeating_time:
                 TimePickerFragment timePickerFragmentRepeat = new TimePickerFragment();
                 timePickerFragmentRepeat.show(getSupportFragmentManager(), TIME_PICKER_REPEAT_TAG);
@@ -89,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String repeatMessage = edtRepeatingMessage.getText().toString();
                 alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING,
                         repeatTime, repeatMessage);
+                break;
+
+            case R.id.btn_cancel_repeating_alarm:
+                alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING);
                 break;
 
         }
